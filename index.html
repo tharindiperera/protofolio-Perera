@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tharindi Perera | Advanced Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #ff4b7d;
+      --secondary: #6a0572;
+      --bg: #fff;
+      --text: #333;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--primary) 30%, var(--secondary) 100%);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    header {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: var(--bg);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transform: perspective(800px) rotateX(5deg);
+      transition: transform 0.5s;
+    }
+    header:hover { transform: perspective(800px) rotateX(0deg); }
+    header h1 {
+      font-size: 3rem;
+      color: var(--primary);
+      letter-spacing: 2px;
+      text-shadow: 2px 2px var(--secondary);
+    }
+    header p {
+      font-size: 1.2rem;
+      color: var(--secondary);
+    }
+    .social-icons a {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      transition: transform 0.3s;
+    }
+    .social-icons a:hover { transform: scale(1.3) rotate(10deg); color: var(--secondary); }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      bottom: -5px;
+      left: 0;
+      transition: 0.3s;
+    }
+    nav a:hover::after { width: 100%; }
+
+    section {
+      padding: 4rem 2rem;
+      background: var(--bg);
+      margin: 2rem auto;
+      max-width: 1200px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transform: translateY(50px);
+      opacity: 0;
+      transition: 1s ease;
+    }
+    section.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    #intro .intro-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+    #intro img {
+      width: 300px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+    .intro-text { flex: 1; }
+
+    .services, .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      list-style: none;
+      padding: 0;
+    }
+    .services li, .skills li {
+      background: var(--primary);
+      color: #fff;
+      padding: 1.2rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: inset 0 -5px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .services li:hover, .skills li:hover { transform: translateY(-5px) scale(1.05); }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .contact-left img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      margin-bottom: 1rem;
+    }
+    .contact-details p { margin: 0.5rem 0; }
+    .contact-details a {
+      display: inline-block;
+      background: var(--secondary);
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .contact-details a:hover { background: var(--primary); }
+    .contact-right form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-right input, .contact-right textarea {
+      padding: 0.8rem;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .contact-right input:focus, .contact-right textarea:focus {
+      border-color: var(--secondary);
+    }
+    .contact-right button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0.9rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .contact-right button:hover { background: var(--secondary); }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--secondary);
+      color: #fff;
+      font-size: 0.9rem;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      z-index: 999;
+    }
+    .back-to-top:hover { background: var(--secondary); transform: scale(1.1); }
+
+    @media (max-width: 768px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+      #intro .intro-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hi, I'm Tharindi Perera</h1>
+    <p> Software Engineer | Office Administrator | Front Office Assistant</p>
+    <div class="social-icons">
+      <a href="https://github.com/janedoe" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/tharindi-perera-73a873358?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://twitter.com/janedoe" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#intro">Introduction</a>
+    <a href="#services">Services</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="intro" class="fade">
+    <h2>Introduction</h2>
+    <div class="intro-container">
+      <img src="pictures/back.jpg" alt="Introduction Photo">
+      <div class="intro-text">
+        <p>Hi! I’m a passionate and driven 21-year-old professional with a growing background in software development, office administration, and front office operations. I bring a unique blend of technical skills, organizational abilities, and excellent communication, making me adaptable to both dynamic tech environments and customer-facing roles.
+
+            As a Software Engineer, I’m excited to contribute innovative solutions, write clean code, and collaborate in agile teams. At the same time, my experience in administrative and front office roles has equipped me with strong attention to detail, multitasking skills, and a professional, friendly demeanor when engaging with clients and colleagues.
+            
+            I’m eager to continue learning, growing, and making a meaningful impact—whether that’s in optimizing workflows, building software, or creating welcoming first impressions for every guest.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="fade">
+    <h2>Services</h2>
+    <ul class="services">
+      <li>Custom Web Development </li>
+      <li>UI/UX Enhancement</li>
+      <li>Database Design & Management</li>
+      <li>Document Management & Organization</li>
+      <li>Inventory & Supply Tracking</li>
+      <li>Scheduling & Calendar Coordination </li>
+      <li>Internal Communication Management</li>
+      <li>Phone & Email Correspondence</li>
+      <li>Visitor Reception & Registration</li>
+      <li>Customer Service Support</li>
+    </ul>
+  </section>
+
+  <section id="education" class="fade">
+    <h2>Education</h2>
+    <p>Diploma in Software Engineering<br>National Institute of Business Management (NIBM), Sri Lanka<br>
+        2023 – 2024 </p><br>
+        <p>Diploma in Business Administration<br>National Institute of Business Management (NIBM), Sri Lanka<br>
+            2022 – 2023 </p><br>
+            <p>Diploma in Hotel Management<br>National Institute of Business Management (NIBM), Sri Lanka<br>
+                2022 – 2023</p><br>
+                <p>G.C.E. Advanced Level – Combined Maths Stream
+               <br> Taxila Central College, Horana, Sri Lanka
+               <br> 2021</p>    <br>  
+               <p>G.C.E. Ordinary Level<br>Taxila Central College, Horana, Sri Lanka<br>2018</p><br>
+               <p>CERTIFICATE IN INTERNATIONAL MODELING SYLLABUS<br>Conducted by Top Models by Thrikala Dharani<br>2024</p>
+  </section>
+
+  <section id="skills" class="fade">
+    <h2>Skills</h2>
+    <ul class="skills">
+      <li>Programming & Coding (JavaScript, Python, etc.)</li>
+      <li>Problem-Solving & Debugging </li>
+      <li>Version Control (Git/GitHub)</li>
+      <li>Document & Records Management</li>
+      <li>Scheduling & Calendar Coordination</li>
+      <li>Office Software Proficiency (MS Office, Google Workspace)</li>
+      <li>Customer Service & Guest Relations</li>
+      <li>Phone & Email Communication Handling</li>
+      <li>UI/UX Awareness</li>
+      <li>Multitasking & Prioritization</li>
+    </ul>
+  </section>
+
+  <section id="contact" class="fade contact">
+    <h2>Contact</h2>
+    <div class="contact-container">
+      <div class="contact-left">
+        <div class="contact-details">
+          <p><strong>Email:</strong> tharindiperera16@gmail.com</p>
+          <p><strong>Phone:</strong> +971 58 809 2175</p>
+          <p><strong>Location:</strong>  Jafiliya, Dubai, UAE</p>
+          <p><strong>Nationality:</strong> Sri Lanka</p>
+          <p><a href="Protofolio/pictures/Tharindi Resume.pdf.pdf .pdf" download style="display:inline-block; background:#673ab7; color:#fff; padding:0.7rem 1.5rem; border-radius:8px; text-decoration:none; margin-top:1rem;">Download CV</a></p>
+        </div>
+      </div>
+      <div class="contact-right">
+        <form>
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email" required>
+          <textarea rows="5" placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Tharindi Perera | All rights reserved.
+  </footer>
+
+  <button class="back-to-top" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
+
+  <script>
+    const fadeElements = document.querySelectorAll('.fade');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    fadeElements.forEach(el => observer.observe(el));
+
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTop.style.display = 'block';
+      } else {
+        backToTop.style.display = 'none';
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
+
+
